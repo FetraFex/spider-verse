@@ -3,19 +3,18 @@ class_name VisualController
 
 var player: CharacterBody3D
 
-@onready var skin: Node3D = %Manequin
 
-func update_facing(direction: Vector3, rotation_speed: float, delta: float) -> void:
-	if direction.length() <= 0.2:
-		return
+@onready var animation_tree: AnimationTree = $"../Miles/AnimationTree"
+var animation_playback: AnimationNodeStateMachinePlayback
 
-	var target_angle := Vector3.BACK.signed_angle_to(
-		direction,
-		Vector3.UP
-	)
+func _ready() -> void:
+	animation_playback = animation_tree.get("parameters/playback")
 
-	skin.global_rotation.y = lerp_angle(
-		skin.rotation.y,
-		target_angle,
-		rotation_speed * delta
-	)
+
+
+func play_idle() -> void:
+	animation_playback.travel("Idle")
+
+
+func play_run() -> void:
+	animation_playback.travel("Run")

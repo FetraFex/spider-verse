@@ -2,6 +2,7 @@ extends State
 
 func Enter():
 	print("Entered Idle")
+	player.play_animation("Idle")
 
 func Exit():
 	print("Exit Idle")
@@ -15,7 +16,6 @@ func Physics_Update(delta: float):
 	player.movement_controller.move_horizontal(
 		Vector3.ZERO,
 		player.move_speed,
-		player.acceleration,
 		delta
 	)
 
