@@ -1,16 +1,23 @@
 [gd_scene format=4 uid="uid://dcsccqcsc4lf7"]
 
 [ext_resource type="Script" uid="uid://cfocn4hixvkhr" path="res://game/player.gd" id="1_v6fml"]
+[ext_resource type="Script" uid="uid://6okwqj75osu8" path="res://game/camera_controller.gd" id="2_0rnld"]
 [ext_resource type="Texture2D" uid="uid://d3lehe3vm5nbi" path="res://assets/models/player/Miles_Image_2.png" id="2_d3wef"]
 [ext_resource type="Texture2D" uid="uid://chjqpaxbj53aa" path="res://assets/models/player/Miles_Image_0.png" id="3_o4126"]
 [ext_resource type="Texture2D" uid="uid://dh17b8modylsm" path="res://assets/models/player/Miles_Image_1.png" id="4_lkdrv"]
 [ext_resource type="AnimationLibrary" uid="uid://xwr1ryxeam0x" path="res://ressources/animations/miles_locomotion.res" id="5_p7iby"]
 [ext_resource type="Script" uid="uid://c8n3cfyysbyo5" path="res://scenes/StateMachine.gd" id="6_70d11"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="6_p7iby"]
 [ext_resource type="Script" uid="uid://e25qfceq0fhd" path="res://game/player_states/Idle.gd" id="7_cw2d6"]
 [ext_resource type="Script" uid="uid://dqnsvc74612eo" path="res://game/player_states/Run.gd" id="8_khinc"]
 [ext_resource type="Script" uid="uid://bvyl5m4fqw3bo" path="res://game/player_states/Airborne.gd" id="9_6eyey"]
 [ext_resource type="Script" uid="uid://c6440wkjo30p3" path="res://game/movement_controller.gd" id="9_bruh7"]
 [ext_resource type="Script" uid="uid://4f3wdsiy6mlu" path="res://game/visual_controller.gd" id="11_d3wef"]
+[ext_resource type="Script" uid="uid://csjccrhj5wnx7" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_3d.gd" id="13_0rnld"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="14_srp4u"]
+
+[sub_resource type="Resource" id="Resource_jfpux"]
+script = ExtResource("14_srp4u")
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_7io78"]
 resource_name = "Eyes"
@@ -419,7 +426,36 @@ height = 1.661377
 script = ExtResource("1_v6fml")
 sprint_jump_forward_speed = 150.0
 
+[node name="CameraController" type="Node" parent="." unique_id=1571249665]
+script = ExtResource("2_0rnld")
+
+[node name="PhantomCamera3D" type="Node3D" parent="." unique_id=2129857930 node_paths=PackedStringArray("follow_target")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3068651, 1)
+script = ExtResource("13_0rnld")
+follow_mode = 6
+follow_target = NodePath("../Miles/TargetFollow")
+tween_resource = SubResource("Resource_jfpux")
+align_transform_with_view = Callable()
+align_position_with_view = Callable()
+align_rotation_with_view = Callable()
+metadata/_custom_type_script = "uid://csjccrhj5wnx7"
+
+[node name="Camera3D" type="Camera3D" parent="." unique_id=46313259]
+unique_name_in_owner = true
+physics_interpolation_mode = 1
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3068651, 1)
+top_level = true
+
+[node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1766153742]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("6_p7iby")
+metadata/_custom_type_script = "uid://bd046eokvcnu2"
+
 [node name="Miles" type="Node3D" parent="." unique_id=89302548]
+
+[node name="TargetFollow" type="Node3D" parent="Miles" unique_id=222655220]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3068651, 0)
 
 [node name="root" type="Node3D" parent="Miles" unique_id=638457749]
 metadata/extras = {
@@ -1322,19 +1358,8 @@ anim_player = NodePath("../AnimationPlayer")
 libraries/miles_locomotion = ExtResource("5_p7iby")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1891247486]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8306885, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8518616, 0)
 shape = SubResource("CapsuleShape3D_ae08u")
-
-[node name="CameraPivot" type="Node3D" parent="." unique_id=1953398655]
-unique_name_in_owner = true
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3541126, 0)
-
-[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=1238740763]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
-spring_length = 2.35
-
-[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=46313259]
-unique_name_in_owner = true
 
 [node name="StateMachine" type="Node" parent="." unique_id=1744847219 node_paths=PackedStringArray("player", "initial_state")]
 script = ExtResource("6_70d11")
