@@ -2,7 +2,7 @@ extends State
 
 func Enter():
 	print("Entered Airborne")
-	if Input.is_action_pressed("Sprint") and player.movement_controller.move_direction.length() > 0.1:
+	if Input.is_action_pressed("sprint") and player.movement_controller.move_direction.length() > 0.1:
 		player.movement_controller.sprint_jump(
 			player.sprint_jump_impulse,
 			player.sprint_jump_forward_speed

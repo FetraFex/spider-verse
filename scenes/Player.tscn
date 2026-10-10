@@ -354,25 +354,28 @@ _surfaces = [{
 blend_shape_mode = 0
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_qu4a1"]
-animation = &"miles_locomotion/idle_1"
+animation = &"miles_locomotion/Miles_Idle_1_0"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_p7iby"]
 animation = &"miles_locomotion/JumpLoop"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_70d11"]
-animation = &"miles_locomotion/Jog_2_1"
+animation = &"miles_locomotion/Miles_Jog_1_1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_lkdrv"]
-animation = &"miles_locomotion/sprint_1"
+animation = &"miles_locomotion/Miles_Sprint_1_0"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d3wef"]
-animation = &"miles_locomotion/start_run_fixed"
+animation = &"miles_locomotion/Miles_StartRun_1_1"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0rnld"]
-animation = &"miles_locomotion/StartJump"
+animation = &"miles_locomotion/Miles_StartJump_1_0"
 
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o4126"]
-animation = &"miles_locomotion/stop_run"
+animation = &"miles_locomotion/Miles_StopRun_1_0"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_srp4u"]
+animation = &"miles_locomotion/Miles_StopToIdle_1_0"
 
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_lkdrv"]
 xfade_time = 0.1
@@ -385,11 +388,6 @@ advance_mode = 2
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0rnld"]
 xfade_time = 0.1
 
-[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_srp4u"]
-xfade_time = 0.1
-switch_mode = 2
-advance_mode = 2
-
 [sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_jfpux"]
 xfade_time = 0.1
 
@@ -401,11 +399,21 @@ xfade_time = 0.2
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_sfy4j"]
+xfade_time = 0.1
+switch_mode = 2
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_gv3ic"]
+xfade_time = 0.1
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ae08u"]
 states/Idle/node = SubResource("AnimationNodeAnimation_qu4a1")
 states/Idle/position = Vector2(375, 79)
 states/JumpLoop/node = SubResource("AnimationNodeAnimation_p7iby")
-states/JumpLoop/position = Vector2(909, 183)
+states/JumpLoop/position = Vector2(910, 183)
 states/Run/node = SubResource("AnimationNodeAnimation_70d11")
 states/Run/position = Vector2(670, 100)
 states/Sprint/node = SubResource("AnimationNodeAnimation_lkdrv")
@@ -414,9 +422,11 @@ states/Sprint/position = Vector2(812, 79)
 "states/Start Run/position" = Vector2(515, 66)
 states/StartJump/node = SubResource("AnimationNodeAnimation_0rnld")
 states/StartJump/position = Vector2(741, 183)
-"states/Stop Run/node" = SubResource("AnimationNodeAnimation_o4126")
-"states/Stop Run/position" = Vector2(507, 189)
-transitions = ["Idle", "Start Run", SubResource("AnimationNodeStateMachineTransition_lkdrv"), "Start Run", "Run", SubResource("AnimationNodeStateMachineTransition_p7iby"), "Run", "Stop Run", SubResource("AnimationNodeStateMachineTransition_0rnld"), "Stop Run", "Idle", SubResource("AnimationNodeStateMachineTransition_srp4u"), "Run", "Sprint", SubResource("AnimationNodeStateMachineTransition_jfpux"), "Sprint", "Run", SubResource("AnimationNodeStateMachineTransition_61ith"), "StartJump", "JumpLoop", SubResource("AnimationNodeStateMachineTransition_ebwui")]
+states/StopRun/node = SubResource("AnimationNodeAnimation_o4126")
+states/StopRun/position = Vector2(507, 189)
+states/StopToIdle/node = SubResource("AnimationNodeAnimation_srp4u")
+states/StopToIdle/position = Vector2(375, 173)
+transitions = ["Idle", "Start Run", SubResource("AnimationNodeStateMachineTransition_lkdrv"), "Start Run", "Run", SubResource("AnimationNodeStateMachineTransition_p7iby"), "Run", "StopRun", SubResource("AnimationNodeStateMachineTransition_0rnld"), "Run", "Sprint", SubResource("AnimationNodeStateMachineTransition_jfpux"), "Sprint", "Run", SubResource("AnimationNodeStateMachineTransition_61ith"), "StartJump", "JumpLoop", SubResource("AnimationNodeStateMachineTransition_ebwui"), "StopRun", "StopToIdle", SubResource("AnimationNodeStateMachineTransition_sfy4j"), "StopToIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_gv3ic")]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae08u"]
 radius = 0.2133789
@@ -429,12 +439,18 @@ sprint_jump_forward_speed = 150.0
 [node name="CameraController" type="Node" parent="." unique_id=1571249665]
 script = ExtResource("2_0rnld")
 
+[node name="TargetFollow" type="Node3D" parent="." unique_id=222655220]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.3068651, 0)
+
 [node name="PhantomCamera3D" type="Node3D" parent="." unique_id=2129857930 node_paths=PackedStringArray("follow_target")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3068651, 1)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.7484555e-07, 1.3068651, -2)
 script = ExtResource("13_0rnld")
 follow_mode = 6
-follow_target = NodePath("../Miles/TargetFollow")
+follow_target = NodePath("../TargetFollow")
 tween_resource = SubResource("Resource_jfpux")
+tween_on_load = false
+follow_distance = 2.0
+spring_length = 2.0
 align_transform_with_view = Callable()
 align_position_with_view = Callable()
 align_rotation_with_view = Callable()
@@ -443,7 +459,7 @@ metadata/_custom_type_script = "uid://csjccrhj5wnx7"
 [node name="Camera3D" type="Camera3D" parent="." unique_id=46313259]
 unique_name_in_owner = true
 physics_interpolation_mode = 1
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3068651, 1)
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, -1.7484555e-07, 1.3068651, -2)
 top_level = true
 
 [node name="PhantomCameraHost" type="Node" parent="Camera3D" unique_id=1766153742]
@@ -453,9 +469,6 @@ script = ExtResource("6_p7iby")
 metadata/_custom_type_script = "uid://bd046eokvcnu2"
 
 [node name="Miles" type="Node3D" parent="." unique_id=89302548]
-
-[node name="TargetFollow" type="Node3D" parent="Miles" unique_id=222655220]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3068651, 0)
 
 [node name="root" type="Node3D" parent="Miles" unique_id=638457749]
 metadata/extras = {

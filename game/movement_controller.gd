@@ -27,7 +27,7 @@ func get_move_direction(camera: Camera3D) -> Vector3:
 
 	return move_direction.normalized()
 	
-func move_horizontal(move_direction: Vector3, speed: float, delta: float) -> void:
+func move_horizontal(move_direction: Vector3, speed: float) -> void:
 	var y_velocity := player.velocity.y
 
 	player.velocity.x = move_direction.x * speed

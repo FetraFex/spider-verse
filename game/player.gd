@@ -26,7 +26,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	movement_controller.update_input(camera)
-	movement_controller.move()
 
 	movement_controller.update_facing(movement_controller.move_direction, rotation_speed, delta)
 
