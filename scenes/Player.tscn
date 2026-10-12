@@ -371,6 +371,9 @@ animation = &"miles_locomotion/Miles_StartRun_1_1"
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_0rnld"]
 animation = &"miles_locomotion/Miles_StartJump_1_0"
 
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jfpux"]
+animation = &"miles_locomotion/Miles_StartJump1_1_0"
+
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_o4126"]
 animation = &"miles_locomotion/Miles_StopRun_1_0"
 
@@ -409,6 +412,17 @@ xfade_time = 0.1
 switch_mode = 2
 advance_mode = 2
 
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_srp4u"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_b8lor"]
+xfade_time = 0.1
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_6e537"]
+xfade_time = 0.2
+switch_mode = 2
+advance_mode = 2
+
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_ae08u"]
 states/Idle/node = SubResource("AnimationNodeAnimation_qu4a1")
 states/Idle/position = Vector2(375, 79)
@@ -422,11 +436,13 @@ states/Sprint/position = Vector2(812, 79)
 "states/Start Run/position" = Vector2(515, 66)
 states/StartJump/node = SubResource("AnimationNodeAnimation_0rnld")
 states/StartJump/position = Vector2(741, 183)
+states/StartJump_1/node = SubResource("AnimationNodeAnimation_jfpux")
+states/StartJump_1/position = Vector2(741, 251)
 states/StopRun/node = SubResource("AnimationNodeAnimation_o4126")
 states/StopRun/position = Vector2(507, 189)
 states/StopToIdle/node = SubResource("AnimationNodeAnimation_srp4u")
 states/StopToIdle/position = Vector2(375, 173)
-transitions = ["Idle", "Start Run", SubResource("AnimationNodeStateMachineTransition_lkdrv"), "Start Run", "Run", SubResource("AnimationNodeStateMachineTransition_p7iby"), "Run", "StopRun", SubResource("AnimationNodeStateMachineTransition_0rnld"), "Run", "Sprint", SubResource("AnimationNodeStateMachineTransition_jfpux"), "Sprint", "Run", SubResource("AnimationNodeStateMachineTransition_61ith"), "StartJump", "JumpLoop", SubResource("AnimationNodeStateMachineTransition_ebwui"), "StopRun", "StopToIdle", SubResource("AnimationNodeStateMachineTransition_sfy4j"), "StopToIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_gv3ic")]
+transitions = ["Idle", "Start Run", SubResource("AnimationNodeStateMachineTransition_lkdrv"), "Start Run", "Run", SubResource("AnimationNodeStateMachineTransition_p7iby"), "Run", "StopRun", SubResource("AnimationNodeStateMachineTransition_0rnld"), "Run", "Sprint", SubResource("AnimationNodeStateMachineTransition_jfpux"), "Sprint", "Run", SubResource("AnimationNodeStateMachineTransition_61ith"), "StartJump", "JumpLoop", SubResource("AnimationNodeStateMachineTransition_ebwui"), "StopRun", "StopToIdle", SubResource("AnimationNodeStateMachineTransition_sfy4j"), "StopToIdle", "Idle", SubResource("AnimationNodeStateMachineTransition_gv3ic"), "StopRun", "Start Run", SubResource("AnimationNodeStateMachineTransition_srp4u"), "StopToIdle", "Start Run", SubResource("AnimationNodeStateMachineTransition_b8lor"), "StartJump_1", "JumpLoop", SubResource("AnimationNodeStateMachineTransition_6e537")]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae08u"]
 radius = 0.2133789
@@ -1392,6 +1408,7 @@ script = ExtResource("9_6eyey")
 
 [node name="MovementController" type="Node" parent="." unique_id=1323399736]
 script = ExtResource("9_bruh7")
+air_control = 0.5
 
 [node name="VisualController" type="Node" parent="." unique_id=203321330]
 script = ExtResource("11_d3wef")

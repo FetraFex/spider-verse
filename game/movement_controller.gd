@@ -7,6 +7,10 @@ var move_direction := Vector3.ZERO
 
 @onready var skin: Node3D = $"../Miles"
 
+@export_group("Air Control")
+@export_range(0.0, 1.0) var air_control := 0.25
+@export var air_acceleration := 8.0
+
 func update_input(camera: Camera3D) -> void:
 	get_move_direction(camera)
 
@@ -26,7 +30,7 @@ func get_move_direction(camera: Camera3D) -> Vector3:
 	move_direction = move_direction.normalized()
 
 	return move_direction.normalized()
-	
+		
 func move_horizontal(move_direction: Vector3, speed: float) -> void:
 	var y_velocity := player.velocity.y
 
@@ -34,6 +38,22 @@ func move_horizontal(move_direction: Vector3, speed: float) -> void:
 	player.velocity.z = move_direction.z * speed
 	player.velocity.y = y_velocity
 	
+
+func move_air(direction: Vector3, speed: float, delta: float) -> void:
+	var target_velocity := direction * speed
+
+	player.velocity.x = move_toward(
+		player.velocity.x,
+		target_velocity.x,
+		air_acceleration * air_control * delta
+	)
+
+	player.velocity.z = move_toward(
+		player.velocity.z,
+		target_velocity.z,
+		air_acceleration * air_control * delta
+	)
+
 func apply_gravity(gravity: float, delta: float) -> void:
 	if not player.is_on_floor():
 		player.velocity.y += gravity * delta

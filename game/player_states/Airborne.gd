@@ -10,12 +10,14 @@ func Enter():
 		player.play_animation("StartJump")
 	else:
 		player.movement_controller.jump(player.jump_impulse)
+		player.play_animation("StartJump_1")
 
 func Exit():
 	print("Exit Airborne")
 
 func Physics_Update(delta: float):
 	player.movement_controller.apply_gravity(player.gravity, delta)
+	player.movement_controller.move_air(player.movement_controller.move_direction, player.move_speed, delta)
 
 	if player.is_on_floor():
 		var input := Input.get_vector(

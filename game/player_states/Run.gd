@@ -43,7 +43,7 @@ func Physics_Update(delta: float):
 			is_stopping = false
 			is_starting = true
 			start_run_elapsed = 0.0
-			player.play_animation("Start Run")
+			player.play_animation("Run")
 			return
 
 		stop_elapsed += delta
