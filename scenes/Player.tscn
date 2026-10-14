@@ -4,6 +4,7 @@
 [ext_resource type="Script" uid="uid://6okwqj75osu8" path="res://game/camera_controller.gd" id="2_0rnld"]
 [ext_resource type="Texture2D" uid="uid://d3lehe3vm5nbi" path="res://assets/models/player/Miles_Image_2.png" id="2_d3wef"]
 [ext_resource type="Texture2D" uid="uid://chjqpaxbj53aa" path="res://assets/models/player/Miles_Image_0.png" id="3_o4126"]
+[ext_resource type="Script" uid="uid://cjun256vgvdpr" path="res://game/web_swing_controller.gd" id="3_srp4u"]
 [ext_resource type="Texture2D" uid="uid://dh17b8modylsm" path="res://assets/models/player/Miles_Image_1.png" id="4_lkdrv"]
 [ext_resource type="AnimationLibrary" uid="uid://xwr1ryxeam0x" path="res://ressources/animations/miles_locomotion.res" id="5_p7iby"]
 [ext_resource type="Script" uid="uid://c8n3cfyysbyo5" path="res://scenes/StateMachine.gd" id="6_70d11"]
@@ -450,10 +451,14 @@ height = 1.661377
 
 [node name="Player" type="CharacterBody3D" unique_id=1853702764]
 script = ExtResource("1_v6fml")
-sprint_jump_forward_speed = 150.0
 
 [node name="CameraController" type="Node" parent="." unique_id=1571249665]
 script = ExtResource("2_0rnld")
+
+[node name="WebSwingController" type="Node" parent="." unique_id=104354515]
+script = ExtResource("3_srp4u")
+
+[node name="WebRayCast" type="RayCast3D" parent="WebSwingController" unique_id=1759478518]
 
 [node name="TargetFollow" type="Node3D" parent="." unique_id=222655220]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 1.3068651, 0)
@@ -1408,7 +1413,7 @@ script = ExtResource("9_6eyey")
 
 [node name="MovementController" type="Node" parent="." unique_id=1323399736]
 script = ExtResource("9_bruh7")
-air_control = 0.5
+air_control = 0.8
 
 [node name="VisualController" type="Node" parent="." unique_id=203321330]
 script = ExtResource("11_d3wef")

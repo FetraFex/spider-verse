@@ -12,7 +12,7 @@ extends CharacterBody3D
 var last_movement_direction := Vector3.BACK
 var gravity := -30.0
 var animation_playback: AnimationNodeStateMachinePlayback
-
+var _air_t := 0.0
 
 @onready var movement_controller: MovementController = $MovementController
 @onready var animation_tree: AnimationTree = $Miles/AnimationTree
@@ -28,6 +28,7 @@ func _physics_process(delta: float) -> void:
 	movement_controller.update_input(camera)
 
 	movement_controller.update_facing(movement_controller.move_direction, rotation_speed, delta)
+	
 
 func play_animation(state_name: String) -> void:
 	if animation_playback.get_current_node() == state_name:

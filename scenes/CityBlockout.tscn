@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://bq0wqhve87at0"]
+
+[ext_resource type="Script" uid="uid://dtd5f3wsgxx00" path="res://game/city_blockout.gd" id="1_irxih"]
+[ext_resource type="PackedScene" uid="uid://dcsccqcsc4lf7" path="res://scenes/Player.tscn" id="2_mknxy"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_mknxy"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_rarhs"]
+sky_material = SubResource("ProceduralSkyMaterial_mknxy")
+
+[sub_resource type="Environment" id="Environment_bbicx"]
+background_mode = 2
+sky = SubResource("Sky_rarhs")
+glow_enabled = true
+
+[node name="CityBlockout" type="Node3D" unique_id=1991043816]
+script = ExtResource("1_irxih")
+street_width = 60.0
+building_footprint = 50.0
+max_building_height = 100.0
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1419918894]
+environment = SubResource("Environment_bbicx")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1708790823]
+transform = Transform3D(0.49999997, 0.448251, -0.7409933, 0, 0.85562533, 0.51759565, 0.86602545, -0.2587978, 0.42781264, -0.1494813, 0, -0.056064606)
+shadow_enabled = true
+
+[node name="Player" parent="." unique_id=2079570989 instance=ExtResource("2_mknxy")]
+transform = Transform3D(1, -2.9802322e-08, 0, -2.9802322e-08, 0.9999999, 0, 0, 1.4901161e-08, 0.99999994, -0.23427641, 0.0065809265, 0.20229161)
+
+[node name="Buildings" type="Node3D" parent="." unique_id=1018769270]
+
+[node name="Ground" type="StaticBody3D" parent="." unique_id=1667584505]
